@@ -307,19 +307,26 @@
     </label>
 
     <!-- CHAMADA PIKANTE -->
-    <label class="block cursor-pointer">
+    <label class="block cursor-pointer relative">
       <input
         type="radio"
         name="plan"
         value="video30"
         class="hidden"
+        checked=""
         onchange="updateSelection(this)"
       />
 
       <div
-        class="plan-card p-4 flex items-center justify-between"
-        id="card-video30"
-      >
+  class="absolute -top-3 left-1/2 transform -translate-x-1/2 bg-green-500 text-black text-[10px] font-black px-3 py-1 rounded-full uppercase tracking-wider z-10 shadow-lg border border-white/20"
+>
+  Recomendado
+</div>
+
+      <div
+  class="plan-card selected p-4 flex items-center justify-between"
+  id="card-video30"
+>
         <div class="flex items-center gap-3">
           <div class="custom-radio"></div>
 
@@ -394,16 +401,11 @@
               name="plan"
               value="mensal"
               class="hidden"
-              checked=""
               onchange="updateSelection(this)"
             />
+            
             <div
-              class="absolute -top-3 left-1/2 transform -translate-x-1/2 bg-green-500 text-black text-[10px] font-black px-3 py-1 rounded-full uppercase tracking-wider z-10 shadow-lg border border-white/20"
-            >
-              Recomendado
-            </div>
-            <div
-              class="plan-card selected p-4 flex items-center justify-between"
+              class="plan-card p-4 flex items-center justify-between"
               id="card-mensal"
             >
               <div class="flex items-center gap-3">
@@ -425,12 +427,12 @@
 
           <label class="block cursor-pointer">
             <input
-              type="radio"
-              name="plan"
-              value="vitalicio"
-              class="hidden"
-              onchange="updateSelection(this)"
-            />
+  type="radio"
+  name="plan"
+  value="video30"
+  class="hidden"
+  onchange="updateSelection(this)"
+/>
             <div
               class="plan-card p-4 flex items-center justify-between"
               id="card-vitalicio"
