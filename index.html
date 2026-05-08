@@ -202,34 +202,162 @@
 
       <div class="text-center mt-6">
         <div class="w-full flex justify-center mt-6">
-          <div class="relative w-52 h-52 md:w-72 md:h-72">
+          <div class="relative w-72 h-72 md:w-96 md:h-96">
             <!-- GLOW -->
             <div
               class="absolute inset-0 rounded-full bg-purple-700 opacity-20 blur-2xl"
             ></div>
 
-            <!-- IMAGEM CENTRAL -->
-            <img
-              src="images/imageebia.jpeg"
-              alt="Perfil"
-              class="relative w-full h-full object-cover rounded-full border-4 border-gray-800 shadow-2xl"
-            />
+            <!-- Video CENTRAL -->
+            <video
+            autoplay
+            muted
+            loop
+            playsinline
+            class="relative w-full h-full object-cover rounded-full border-4 border-gray-800 shadow-2xl"
+          >
+  <source src="images/hellenfreitas.mp4" type="video/mp4" />
+</video>
           </div>
         </div>
-        <h1 class="mt-3 text-2xl font-black uppercase leading-tight mb-1">
-          Acesse <span class="text-red-600">MEUS CONTEÚDOS</span>
-        </h1>
+        <h1 class="mt-3 text-2xl font-black uppercase leading-tight mb-1 flex items-center justify-center gap-2">
+
+
+ <h1 class="mt-3 text-2xl font-black uppercase leading-tight mb-1 flex items-center justify-center gap-2">
+  <span>
+    FAÇA <span class="text-red-600">CHAMADA DE VÍDEO</span>
+  </span>
+
+  <i class="fa-brands fa-whatsapp whatsapp-pulse text-green-500 text-3xl"></i>
+</h1>
+
+<style>
+  .whatsapp-pulse {
+    animation: whatsappPulse 1.8s infinite;
+  }
+
+  @keyframes whatsappPulse {
+    0% {
+      transform: scale(1);
+      color: #22c55e;
+      filter: drop-shadow(0 0 0 rgba(34, 197, 94, 0));
+    }
+
+    50% {
+      transform: scale(1.18);
+      color: #86efac; /* verde mais claro */
+      filter: drop-shadow(0 0 12px rgba(134, 239, 172, 0.8));
+    }
+
+    100% {
+      transform: scale(1);
+      color: #22c55e;
+      filter: drop-shadow(0 0 0 rgba(34, 197, 94, 0));
+    }
+  }
+</style>
         <p
           class="text-[11px] text-gray-400 font-bold uppercase tracking-widest mb-4"
         >
-          Mais de <span class="text-white">100 vídeos</span> e conteúdos
-          exclusivos
+          E acesse <span class="text-white">100 vídeos</span> conteúdos
+          exclusivos</span>
         </p>
       </div>
 
+      <!-- CARD CHAMADA DE VÍDEO -->
+<div class="p-4 mt-2" id="video-call-section">
+  <h2 class="text-lg font-bold mb-4 uppercase flex items-center gap-2">
+    <i class="fa-solid fa-video text-red-600"></i> AGENDE SUA <span class="text-green-600">Chamada de Vídeo</span>
+  </h2>
+
+  <div class="space-y-3">
+
+    <!-- CHAMADA NORMAL -->
+    <label class="block cursor-pointer">
+      <input
+        type="radio"
+        name="plan"
+        value="video20"
+        class="hidden"
+        onchange="updateSelection(this)"
+      />
+
+      <div
+        class="plan-card p-4 flex items-center justify-between"
+        id="card-video20"
+      >
+        <div class="flex items-center gap-3">
+          <div class="custom-radio"></div>
+
+          <div>
+            <h3 class="font-bold text-lg"> CHAMADA DE VÍDEO</h3>
+
+            <p class="text-xs text-gray-400 font-medium">
+              20 minutos de puro prazer.
+            </p>
+          </div>
+        </div>
+
+        <div class="text-right">
+          <span class="block text-xl font-black text-white">
+            R$ 30,00
+          </span>
+        </div>
+      </div>
+    </label>
+
+    <!-- CHAMADA PIKANTE -->
+    <label class="block cursor-pointer">
+      <input
+        type="radio"
+        name="plan"
+        value="video30"
+        class="hidden"
+        onchange="updateSelection(this)"
+      />
+
+      <div
+        class="plan-card p-4 flex items-center justify-between"
+        id="card-video30"
+      >
+        <div class="flex items-center gap-3">
+          <div class="custom-radio"></div>
+
+          <div>
+            <h3 class="font-bold text-lg">
+              CHAMADA DE VÍDEO
+            </h3>
+
+            <p class="text-xs text-gray-400 font-medium">
+              30 minutos até gozar.
+            </p>
+          </div>
+        </div>
+
+        <div class="text-right">
+          <span class="block text-xl font-black text-white">
+            R$ 60,00
+          </span>
+        </div>
+      </div>
+    </label>
+
+  </div>
+
+  <div class="mt-4">
+    <button
+      onclick="processCheckout()"
+      id="video-cta"
+      class="w-full bg-green-600 hover:bg-green-700 text-white font-black text-xl py-5 rounded-xl shadow-[0_10px_30px_rgba(34,197,94,0.4)] flex justify-center items-center transition-all btn-pulse uppercase tracking-wider"
+    >
+      Quero minha chamada agora
+    </button>
+  </div>
+</div>
+
       <div class="p-4 mt-2" id="plans-section">
         <h2 class="text-lg font-bold mb-4 uppercase flex items-center gap-2">
-          <i class="fa-solid fa-fire text-red-600"></i> Escolha seu plano
+          <i class="fa-solid fa-fire text-red-600"></i> Escolha seu plano 
         </h2>
 
         <div class="space-y-3">
@@ -355,26 +483,26 @@
         <div class="swiper modelsSwiper">
           <div class="swiper-wrapper">
             <div class="swiper-slide">
-              <img src="images/bia12.jpeg" class="w-full h-full object-cover" />
+              <img src="images/hellen1.jpg" class="w-full h-full object-cover" />
             </div>
             <div class="swiper-slide">
               <img
-                src="images/imagebia.jpeg"
+                src="images/hellen2.jpg"
                 class="w-full h-full object-cover"
               />
             </div>
             <div class="swiper-slide">
-              <img src="images/bia121.png" class="w-full h-full object-cover" />
+              <img src="images/hellen3.jpg" class="w-full h-full object-cover" />
             </div>
             <div class="swiper-slide">
               <img
-                src="images/biaimage.jpeg"
+                src="images/hellen4.jpg"
                 class="w-full h-full object-cover"
               />
             </div>
             <div class="swiper-slide">
               <img
-                src="images/biaimage1.jpeg"
+                src="images/hellen5.jpg"
                 class="w-full h-full object-cover"
               />
             </div>
@@ -402,8 +530,85 @@
             webkit-playsinline=""
             controlslist="nodownload"
           >
-            <source src="media/biavideo1.mp4" type="video/mp4" />
+            <source src="media/vhellen.mp4" type="video/mp4" />
           </video>
+        </div>
+      </div>
+
+      <div class="p-6 mt-6 border-t border-gray-800">
+        <h2 class="text-lg font-black mb-6 uppercase flex items-center gap-2">
+          <i class="fa-solid fa-star text-red-600"></i>
+          Depoimentos de Membros
+        </h2>
+        <div class="space-y-4">
+          <div
+            class="bg-[#1c1c1e] p-5 rounded-2xl border border-[#2c2c2e] shadow-lg"
+          >
+            <div class="flex items-center justify-between mb-3">
+              <div class="flex text-yellow-500 text-xs gap-1">
+                <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i
+                ><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i
+                ><i class="fa-solid fa-star"></i>
+              </div>
+              <span class="text-[9px] text-gray-500 font-bold uppercase"
+                >Há 1 dia</span
+              >
+            </div>
+            <p class="text-sm font-bold text-white mb-2">
+              "O melhor investimento que já fiz"
+            </p>
+            <p class="text-xs text-gray-400 leading-relaxed font-medium">
+              Os vídeos são em alta definição e o grupo no Telegram é atualizado
+              todos os dias. O suporte é excelente.
+            </p>
+            <div
+              class="mt-4 pt-4 border-t border-white/5 flex items-center gap-2"
+            >
+              <div
+                class="w-8 h-8 bg-red-600 rounded-full flex items-center justify-center text-[10px] font-black italic"
+              >
+                RC
+              </div>
+              <span class="text-[11px] text-gray-400 font-bold"
+                >Ricardo C.
+                <span class="text-green-500">✓ Compra Verificada</span></span
+              >
+            </div>
+          </div>
+          <div
+            class="bg-[#1c1c1e] p-5 rounded-2xl border border-[#2c2c2e] shadow-lg opacity-80"
+          >
+            <div class="flex items-center justify-between mb-3">
+              <div class="flex text-yellow-500 text-xs gap-1">
+                <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i
+                ><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i
+                ><i class="fa-solid fa-star"></i>
+              </div>
+              <span class="text-[9px] text-gray-500 font-bold uppercase"
+                >Há 3 dias</span
+              >
+            </div>
+            <p class="text-sm font-bold text-white mb-2">
+              "Acesso instantâneo mesmo"
+            </p>
+            <p class="text-xs text-gray-400 leading-relaxed font-medium">
+              Paguei no Pix e o link já apareceu na tela. O pack de 500 vídeos é
+              absurdo, recomendo o vitalício.
+            </p>
+            <div
+              class="mt-4 pt-4 border-t border-white/5 flex items-center gap-2"
+            >
+              <div
+                class="w-8 h-8 bg-gray-800 rounded-full flex items-center justify-center text-[10px] font-black italic text-gray-500"
+              >
+                AM
+              </div>
+              <span class="text-[11px] text-gray-400 font-bold"
+                >André M.
+                <span class="text-green-500">✓ Compra Verificada</span></span
+              >
+            </div>
+          </div>
         </div>
       </div>
 
