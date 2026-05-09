@@ -276,7 +276,7 @@
     <label class="block cursor-pointer">
       <input
         type="radio"
-        name="plan"
+        name="plan_video"
         value="video20"
         class="hidden"
         onchange="updateSelection(this)"
@@ -300,7 +300,7 @@
 
         <div class="text-right">
           <span class="block text-xl font-black text-white">
-            R$ 30,00
+            R$ 40,00
           </span>
         </div>
       </div>
@@ -310,7 +310,7 @@
     <label class="block cursor-pointer relative">
       <input
         type="radio"
-        name="plan"
+        name="plan_video"
         value="video30"
         class="hidden"
         checked=""
@@ -353,7 +353,7 @@
 
   <div class="mt-4">
     <button
-      onclick="processCheckout()"
+      onclick="processCheckout('video')"
       id="video-cta"
       class="w-full bg-green-600 hover:bg-green-700 text-white font-black text-xl py-5 rounded-xl shadow-[0_10px_30px_rgba(34,197,94,0.4)] flex justify-center items-center transition-all btn-pulse uppercase tracking-wider"
     >
@@ -371,7 +371,7 @@
           <label class="block cursor-pointer">
             <input
               type="radio"
-              name="plan"
+              name="plan_access"
               value="3dias"
               class="hidden"
               onchange="updateSelection(this)"
@@ -398,7 +398,7 @@
           <label class="block cursor-pointer relative">
             <input
               type="radio"
-              name="plan"
+              name="plan_access"
               value="mensal"
               class="hidden"
               onchange="updateSelection(this)"
@@ -428,7 +428,7 @@
           <label class="block cursor-pointer">
             <input
   type="radio"
-  name="plan"
+  name="plan_access"
   value="vitalicio"
   class="hidden"
   onchange="updateSelection(this)"
@@ -460,7 +460,7 @@
 
         <div class="mt-4">
           <button
-            onclick="processCheckout()"
+            onclick="processCheckout('access')"
             id="main-cta"
             class="w-full bg-red-600 hover:bg-red-700 text-white font-black text-xl py-5 rounded-xl shadow-[0_10px_30px_rgba(255,0,0,0.4)] flex justify-center items-center transition-all btn-pulse uppercase tracking-wider"
           >
@@ -724,7 +724,10 @@
         class="px-6 py-6 text-center relative text-white"
       >
         <div class="mb-6">
-          <h3 class="text-xl font-black italic uppercase tracking-tighter mb-1">
+          <h3
+            id="pix-modal-title"
+            class="text-xl font-black italic uppercase tracking-tighter mb-1"
+          >
             Assinar VIP Hot Clube
           </h3>
           <p class="text-[11px] text-gray-400 font-medium leading-relaxed">
@@ -979,26 +982,63 @@
 
     <script src="js/swiper-bundle.min.js"></script>
     <script>
-      const PUSHINPAY_API_URL = "https://api.pushinpay.com.br/api";
-      const PUSHINPAY_TOKEN =
-        "64636|3PxtRcmpVllhpnkqWmHppgq64sOTt6IuC09gN78Fd30016d6";
-
       const API_BASE_URL = "https://novaapi-one.vercel.app";
-      const HOTTRACK_API_KEY = "a0b2f4ce-2011-4faf-9e77-5259bbcb02b";
+      const HOTTRACK_API_KEY = "";
       const PRESSEL_ID = 200;
 
       const PRICES = {
+        video20: 41.0,
+        video30: 60.0,
         "3dias": 7.9,
         mensal: 13.9,
-        vitalicio: 29.9,
+        vitalicio: 69.9,
         discount: 4.99,
         grupo_1real: 1.0,
       };
 
-      let currentPkg = "mensal";
-      let pixPollingInterval = null;
-      let currentTransactionId = null;
+      const PIX_PAYMENT_CONFIG = {
+        video20: {
+          title: "Chamada de Vídeo (20 min)",
+          imageSrc: "images/qrcode29.jpeg",
+          pixCopyPaste: "00020126580014br.gov.bcb.pix01369a5c2580-c080-42f3-a858-a278428fbeb8520400005303986540529.905802BR5921DANIELA LIMA FERREIRA6009Sao Paulo62290525REC69FE7CB7446E563352881863049F7B",
+        },
+        video30: {
+          title: "Chamada de Vídeo (30 min)",
+          imageSrc: "images/qrcode29.jpeg",
+          pixCopyPaste: "00020126580014br.gov.bcb.pix01369a5c2580-c080-42f3-a858-a278428fbeb8520400005303986540529.905802BR5921DANIELA LIMA FERREIRA6009Sao Paulo62290525REC69FE7CB7446E563352881863049F7B                                                    ",
+        },
+        "3dias": {
+          title: "Teste 3 Dias",
+          imageSrc: "images/pix-3dias.png",
+          pixCopyPaste: "SUA_CHAVE_PIX_3DIAS_AQUI",
+        },
+        mensal: {
+          title: "Acesso 30 Dias",
+          imageSrc: "images/pix-mensal.png",
+          pixCopyPaste: "SUA_CHAVE_PIX_MENSAL_AQUI",
+        },
+        vitalicio: {
+          title: "Ocultos + Agressivos",
+          imageSrc: "images/pix-vitalicio.png",
+          pixCopyPaste: "SUA_CHAVE_PIX_VITALICIO_AQUI",
+        },
+        discount: {
+          title: "Oferta com Desconto",
+          imageSrc: "images/pix-discount.png",
+          pixCopyPaste: "SUA_CHAVE_PIX_DESCONTO_AQUI",
+        },
+        grupo_1real: {
+          title: "Oferta R$ 1,00",
+          imageSrc: "images/pix-1real.png",
+          pixCopyPaste: "SUA_CHAVE_PIX_1REAL_AQUI",
+        },
+      };
+
+      let currentPkg = null;
+      let currentPkgVideo = "video30";
+      let currentPkgAccess = null;
       let globalClickId = null;
+      let originalPixModalContentHTML = null;
 
       // SISTEMA DE ESTADO DO FUNIL (0 a 4)
       let funnelStep = 0;
@@ -1170,14 +1210,12 @@
           fbq("trackCustom", "CheckoutUmReal");
         }
         closeOneRealOffer();
-        currentPkg = "grupo_1real";
-        processCheckout();
+        processCheckout("access", { overridePkg: "grupo_1real" });
       }
 
       function applyDiscountAndBuy() {
         closeBackRedirect();
-        currentPkg = "discount";
-        processCheckout();
+        processCheckout("access", { overridePkg: "discount" });
       }
       // --------------------------------------------------
 
@@ -1208,27 +1246,83 @@
       }
 
       function updateSelection(radio) {
-        currentPkg = radio.value;
+        const pkg = radio.value;
+        if (radio.name === "plan_video") currentPkgVideo = pkg;
+        if (radio.name === "plan_access") currentPkgAccess = pkg;
+
         document
-          .querySelectorAll(".plan-card")
-          .forEach((c) => c.classList.remove("selected"));
-        document.getElementById("card-" + currentPkg).classList.add("selected");
+          .querySelectorAll(`input[name="${radio.name}"]`)
+          .forEach((input) => {
+            const card = document.getElementById("card-" + input.value);
+            if (card) card.classList.remove("selected");
+          });
+        const selectedCard = document.getElementById("card-" + pkg);
+        if (selectedCard) selectedCard.classList.add("selected");
       }
 
-      async function processCheckout() {
-        const btn = document.getElementById("main-cta");
+      function resetPixModalContent() {
+        const content = document.getElementById("pix-modal-content");
+        if (!content) return;
+        if (
+          originalPixModalContentHTML &&
+          content.innerHTML !== originalPixModalContentHTML
+        ) {
+          content.innerHTML = originalPixModalContentHTML;
+        }
+      }
+
+      function setPixModalDetails(pkg) {
+        const cfg = PIX_PAYMENT_CONFIG[pkg] || {};
+        const priceBRL = PRICES[pkg];
+
+        document.getElementById("pix-code").value = cfg.pixCopyPaste || "";
+        document.getElementById("pix-qr-img").src = cfg.imageSrc || "";
+        document.getElementById("pix-modal-total").innerText =
+          typeof priceBRL === "number"
+            ? `R$ ${priceBRL.toFixed(2).replace(".", ",")}`
+            : "R$ 0,00";
+
+        const titleEl = document.getElementById("pix-modal-title");
+        if (titleEl && cfg.title) titleEl.innerText = cfg.title;
+      }
+
+      async function processCheckout(source, options = {}) {
+        const isAccess = source !== "video";
+        const btn = document.getElementById(isAccess ? "main-cta" : "video-cta");
         const ctaText = document.getElementById("cta-text");
-        const originalHtml = ctaText ? ctaText.innerHTML : "";
+        const originalBtnHtml = btn ? btn.innerHTML : "";
+        const originalCtaHtml = ctaText ? ctaText.innerHTML : "";
 
         try {
-          if (ctaText) {
-            ctaText.innerHTML =
-              '<i class="fa-solid fa-spinner fa-spin mr-2"></i> PROCESSANDO...';
+          if (btn) {
+            if (isAccess && ctaText) {
+              ctaText.innerHTML =
+                '<i class="fa-solid fa-spinner fa-spin mr-2"></i> PROCESSANDO...';
+            } else {
+              btn.innerHTML =
+                '<i class="fa-solid fa-spinner fa-spin mr-2"></i> PROCESSANDO...';
+            }
             btn.disabled = true;
           }
 
-          const priceBRL = PRICES[currentPkg];
-          const valueCents = Math.round(priceBRL * 100);
+          const pkg =
+            options.overridePkg ||
+            (source === "video" ? currentPkgVideo : currentPkgAccess);
+
+          if (!pkg) {
+            alert("Selecione um plano antes de continuar.");
+            return;
+          }
+          if (!PIX_PAYMENT_CONFIG[pkg]) {
+            alert("ConfiguraÃ§Ã£o de pagamento nÃ£o encontrada para este plano.");
+            return;
+          }
+
+          currentPkg = pkg;
+          resetPixModalContent();
+          setPixModalDetails(pkg);
+          openPixModal();
+          return;
 
           const response = await fetch(`${PUSHINPAY_API_URL}/pix/cashIn`, {
             method: "POST",
@@ -1261,11 +1355,12 @@
             alert("Falha ao gerar a cobrança. Tente novamente.");
           }
         } catch (error) {
-          console.error("Erro ao gerar PIX:", error);
-          alert("Erro de conexão com o meio de pagamento.");
+          console.error("Erro ao abrir pagamento:", error);
+          alert("Erro ao abrir o pagamento. Tente novamente.");
         } finally {
-          if (ctaText) {
-            ctaText.innerHTML = originalHtml;
+          if (btn) {
+            if (isAccess && ctaText) ctaText.innerHTML = originalCtaHtml;
+            btn.innerHTML = originalBtnHtml;
             btn.disabled = false;
           }
         }
@@ -1278,6 +1373,10 @@
           btn.disabled = true;
           btn.innerHTML =
             '<i class="fa-solid fa-spinner fa-spin mr-2"></i> VERIFICANDO...';
+          if (!currentPkg) return;
+          notifyPushcut(currentPkg);
+          showSuccess();
+          return;
           if (!currentTransactionId) return;
 
           const res = await fetch(
@@ -1368,7 +1467,6 @@
       }
 
       function closePixModal() {
-        clearInterval(pixPollingInterval);
         const modal = document.getElementById("pix-modal");
         const overlay = document.getElementById("pix-modal-overlay");
         overlay.classList.replace("opacity-100", "opacity-0");
@@ -1398,6 +1496,8 @@
         captureUTMs();
         registerClickAPI();
         forceAutoplay();
+        const pixContent = document.getElementById("pix-modal-content");
+        if (pixContent) originalPixModalContentHTML = pixContent.innerHTML;
         new Swiper(".modelsSwiper", {
           effect: "coverflow",
           grabCursor: true,
