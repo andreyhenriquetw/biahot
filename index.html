@@ -255,6 +255,38 @@
       filter: drop-shadow(0 0 0 rgba(34, 197, 94, 0));
     }
   }
+
+  
+.btn-inner-pulse {
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 10px 30px rgba(34,197,94,0.25);
+  animation: pulseColor 1s infinite ease-in-out;
+}
+
+@keyframes pulseColor {
+  0% {
+    background-color: #0f7a36; /* mais apagado */
+    box-shadow:
+      inset 0 0 0 rgba(255,255,255,0),
+      0 10px 25px rgba(34,197,94,0.20);
+  }
+
+  50% {
+    background-color: #1a8d44; /* acende */
+    box-shadow:
+      inset 0 0 25px rgba(255,255,255,0.12),
+      0 10px 30px rgba(34,197,94,0.35);
+  }
+
+  100% {
+    background-color: #0f7a36; /* apaga de novo */
+    box-shadow:
+      inset 0 0 0 rgba(255,255,255,0),
+      0 10px 25px rgba(34,197,94,0.20);
+  }
+}
+
 </style>
         <p
           class="text-[11px] text-gray-400 font-bold uppercase tracking-widest mb-4"
@@ -267,7 +299,7 @@
       <!-- CARD CHAMADA DE VÍDEO -->
 <div class="p-4 mt-2" id="video-call-section">
   <h2 class="text-lg font-bold mb-4 uppercase flex items-center gap-2">
-    <i class="fa-solid fa-video text-red-600"></i> AGENDE SUA <span class="text-green-600">Chamada de Vídeo</span>
+    <i class="fa-solid fa-video text-red-600"></i> AGENDE SUA <span class="text-green-500">Chamada de Vídeo</span>
   </h2>
 
   <div class="space-y-3">
@@ -290,10 +322,10 @@
           <div class="custom-radio"></div>
 
           <div>
-            <h3 class="font-bold text-lg"> CHAMADA DE VÍDEO</h3>
+            <h3 class="font-bold text-lg">CONTEÚDOS</h3>
 
             <p class="text-xs text-gray-400 font-medium">
-              20 minutos de puro prazer.
+              Vídeos e Imagens sem censura.
             </p>
           </div>
         </div>
@@ -351,123 +383,18 @@
 
   </div>
 
-  <div class="mt-4">
-    <button
-      onclick="processCheckout('video')"
-      id="video-cta"
-      class="w-full bg-green-600 hover:bg-green-700 text-white font-black text-xl py-5 rounded-xl shadow-[0_10px_30px_rgba(34,197,94,0.4)] flex justify-center items-center transition-all btn-pulse uppercase tracking-wider"
-    >
-      Quero minha chamada agora
-    </button>
-  </div>
+ <div class="mt-4">
+  <button
+    onclick="processCheckout('video')"
+    id="video-cta"
+    class="w-full bg-green-600 hover:bg-green-700 text-white font-black text-xl py-5 rounded-xl flex justify-center items-center transition-all uppercase tracking-wider btn-inner-pulse"
+  >
+    Quero ter acesso agora
+  </button>
 </div>
 
-      <div class="p-4 mt-2" id="plans-section">
-        <h2 class="text-lg font-bold mb-4 uppercase flex items-center gap-2">
-          <i class="fa-solid fa-fire text-red-600"></i> Escolha seu plano 
-        </h2>
+</div>
 
-        <div class="space-y-3">
-          <label class="block cursor-pointer">
-            <input
-              type="radio"
-              name="plan_access"
-              value="3dias"
-              class="hidden"
-              onchange="updateSelection(this)"
-            />
-            <div
-              class="plan-card p-4 flex items-center justify-between"
-              id="card-3dias"
-            >
-              <div class="flex items-center gap-3">
-                <div class="custom-radio"></div>
-                <div>
-                  <h3 class="font-bold text-lg">Teste 3 Dias</h3>
-                  <p class="text-xs text-gray-400 font-medium">
-                    Acesso total por 72h
-                  </p>
-                </div>
-              </div>
-              <div class="text-right">
-                <span class="block text-xl font-black text-white">R$ 7,90</span>
-              </div>
-            </div>
-          </label>
-
-          <label class="block cursor-pointer relative">
-            <input
-              type="radio"
-              name="plan_access"
-              value="mensal"
-              class="hidden"
-              onchange="updateSelection(this)"
-            />
-            
-            <div
-              class="plan-card p-4 flex items-center justify-between"
-              id="card-mensal"
-            >
-              <div class="flex items-center gap-3">
-                <div class="custom-radio"></div>
-                <div>
-                  <h3 class="font-bold text-lg">Acesso 30 Dias</h3>
-                  <p class="text-xs text-green-400 font-bold italic">
-                    Melhor custo-benefício
-                  </p>
-                </div>
-              </div>
-              <div class="text-right">
-                <span class="block text-xl font-black text-white"
-                  >R$ 13,90</span
-                >
-              </div>
-            </div>
-          </label>
-
-          <label class="block cursor-pointer">
-            <input
-  type="radio"
-  name="plan_access"
-  value="vitalicio"
-  class="hidden"
-  onchange="updateSelection(this)"
-/>
-            <div
-              class="plan-card p-4 flex items-center justify-between"
-              id="card-vitalicio"
-            >
-              <div class="flex items-center gap-3">
-                <div class="custom-radio"></div>
-                <div>
-                  <h3 class="font-bold text-lg">Ocultos + Agressivos ☠️</h3>
-                  <p class="text-xs text-gray-400 font-medium">
-                    🌈+ Brinde 10 Grupos VIPs
-                  </p>
-                </div>
-              </div>
-              <div class="text-right">
-                <span
-                  class="block text-xs text-gray-500 line-through font-bold"
-                ></span>
-                <span class="block text-xl font-black text-white"
-                  >R$ 69,90</span
-                >
-              </div>
-            </div>
-          </label>
-        </div>
-
-        <div class="mt-4">
-          <button
-            onclick="processCheckout('access')"
-            id="main-cta"
-            class="w-full bg-red-600 hover:bg-red-700 text-white font-black text-xl py-5 rounded-xl shadow-[0_10px_30px_rgba(255,0,0,0.4)] flex justify-center items-center transition-all btn-pulse uppercase tracking-wider"
-          >
-            <span id="cta-text">Quero ter acesso agora</span>
-          </button>
-        </div>
-      </div>
 
       <div class="py-10 mt-4 border-t border-gray-800 bg-[#0d0d12]">
         <div class="px-6 mb-6 text-center">
@@ -731,13 +658,13 @@
             Assinar VIP Hot Clube
           </h3>
           <p class="text-[11px] text-gray-400 font-medium leading-relaxed">
-            Libere agora
+            Após o pagamento
             <span class="text-white font-black uppercase tracking-wider"
-              >Mais de 500 Vídeos</span
+              >Seu acesso será liberado</span
             ><br />
             Acesso via
             <span class="text-blue-400 font-bold uppercase">Telegram</span> e
-            <span class="text-green-400 font-bold uppercase">Download</span>.
+            <span class="text-green-400 font-bold uppercase">WhatsApp</span>.
           </p>
         </div>
 
@@ -809,7 +736,7 @@
     </div>
 
     <!-- DOWNSELL 1: DESCONTO R$ 4,99 -->
-    <div
+   <!--  <div
       id="back-redirect-overlay"
       class="fixed inset-0 bg-black/98 z-[200] hidden opacity-0 transition-opacity backdrop-blur-xl flex items-center justify-center p-6"
     >
@@ -870,10 +797,10 @@
           Não, prefiro sair e perder tudo
         </button>
       </div>
-    </div>
+    </div> -->
 
     <!-- DOWNSELL 2 (O MATADOR): OFERTA DE R$ 1,00 -->
-    <div
+    <!-- <div
       id="one-real-overlay"
       class="fixed inset-0 bg-black/98 z-[300] hidden opacity-0 transition-opacity backdrop-blur-xl flex items-center justify-center p-6"
     >
@@ -933,7 +860,7 @@
           SOU MALUCO, NÃO TENHO NEM 1 REAL
         </button>
       </div>
-    </div>
+    </div>-->
 
     <!-- DOWNSELL 3: GRUPO 100% GRÁTIS -->
     <div
@@ -989,16 +916,13 @@
       const PRICES = {
         video20: 41.0,
         video30: 60.0,
-        "3dias": 7.9,
-        mensal: 13.9,
-        vitalicio: 69.9,
-        discount: 4.99,
-        grupo_1real: 1.0,
+        //discount: 4.99,
+     //   grupo_1real: 1.0,
       };
 
       const PIX_PAYMENT_CONFIG = {
         video20: {
-          title: "Chamada de Vídeo (20 min)",
+          title: "Conteúdos Exclusivos",
           imageSrc: "images/qrcode29.jpeg",
           pixCopyPaste: "00020126580014br.gov.bcb.pix01369a5c2580-c080-42f3-a858-a278428fbeb8520400005303986540529.905802BR5921DANIELA LIMA FERREIRA6009Sao Paulo62290525REC69FE7CB7446E563352881863049F7B",
         },
@@ -1007,36 +931,11 @@
           imageSrc: "images/qrcode29.jpeg",
           pixCopyPaste: "00020126580014br.gov.bcb.pix01369a5c2580-c080-42f3-a858-a278428fbeb8520400005303986540529.905802BR5921DANIELA LIMA FERREIRA6009Sao Paulo62290525REC69FE7CB7446E563352881863049F7B                                                    ",
         },
-        "3dias": {
-          title: "Teste 3 Dias",
-          imageSrc: "images/pix-3dias.png",
-          pixCopyPaste: "SUA_CHAVE_PIX_3DIAS_AQUI",
-        },
-        mensal: {
-          title: "Acesso 30 Dias",
-          imageSrc: "images/pix-mensal.png",
-          pixCopyPaste: "SUA_CHAVE_PIX_MENSAL_AQUI",
-        },
-        vitalicio: {
-          title: "Ocultos + Agressivos",
-          imageSrc: "images/pix-vitalicio.png",
-          pixCopyPaste: "SUA_CHAVE_PIX_VITALICIO_AQUI",
-        },
-        discount: {
-          title: "Oferta com Desconto",
-          imageSrc: "images/pix-discount.png",
-          pixCopyPaste: "SUA_CHAVE_PIX_DESCONTO_AQUI",
-        },
-        grupo_1real: {
-          title: "Oferta R$ 1,00",
-          imageSrc: "images/pix-1real.png",
-          pixCopyPaste: "SUA_CHAVE_PIX_1REAL_AQUI",
-        },
+        
       };
 
       let currentPkg = null;
       let currentPkgVideo = "video30";
-      let currentPkgAccess = null;
       let globalClickId = null;
       let originalPixModalContentHTML = null;
 
@@ -1286,85 +1185,35 @@
         if (titleEl && cfg.title) titleEl.innerText = cfg.title;
       }
 
-      async function processCheckout(source, options = {}) {
-        const isAccess = source !== "video";
-        const btn = document.getElementById(isAccess ? "main-cta" : "video-cta");
-        const ctaText = document.getElementById("cta-text");
-        const originalBtnHtml = btn ? btn.innerHTML : "";
-        const originalCtaHtml = ctaText ? ctaText.innerHTML : "";
+      async function processCheckout() {
+  const btn = document.getElementById("video-cta");
+  const originalBtnHtml = btn.innerHTML;
 
-        try {
-          if (btn) {
-            if (isAccess && ctaText) {
-              ctaText.innerHTML =
-                '<i class="fa-solid fa-spinner fa-spin mr-2"></i> PROCESSANDO...';
-            } else {
-              btn.innerHTML =
-                '<i class="fa-solid fa-spinner fa-spin mr-2"></i> PROCESSANDO...';
-            }
-            btn.disabled = true;
-          }
+  try {
+    btn.innerHTML =
+      '<i class="fa-solid fa-spinner fa-spin mr-2"></i> PROCESSANDO...';
+    btn.disabled = true;
 
-          const pkg =
-            options.overridePkg ||
-            (source === "video" ? currentPkgVideo : currentPkgAccess);
+    const pkg = currentPkgVideo;
 
-          if (!pkg) {
-            alert("Selecione um plano antes de continuar.");
-            return;
-          }
-          if (!PIX_PAYMENT_CONFIG[pkg]) {
-            alert("ConfiguraÃ§Ã£o de pagamento nÃ£o encontrada para este plano.");
-            return;
-          }
+    if (!pkg) {
+      alert("Selecione um plano antes de continuar.");
+      return;
+    }
 
-          currentPkg = pkg;
-          resetPixModalContent();
-          setPixModalDetails(pkg);
-          openPixModal();
-          return;
+    currentPkg = pkg;
 
-          const response = await fetch(`${PUSHINPAY_API_URL}/pix/cashIn`, {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-              Accept: "application/json",
-              Authorization: `Bearer ${PUSHINPAY_TOKEN}`,
-            },
-            body: JSON.stringify({
-              value: valueCents,
-            }),
-          });
-
-          const data = await response.json();
-          const pixCode = data.qr_code || data.qr_code_text || data.brcode;
-
-          if (data && pixCode && data.id) {
-            document.getElementById("pix-code").value = pixCode;
-            document.getElementById("pix-qr-img").src =
-              `https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${encodeURIComponent(pixCode)}`;
-            document.getElementById("pix-modal-total").innerText =
-              `R$ ${priceBRL.toFixed(2).replace(".", ",")}`;
-
-            currentTransactionId = data.id;
-
-            openPixModal();
-            startPixPolling();
-          } else {
-            console.error("Erro na resposta da PushinPay:", data);
-            alert("Falha ao gerar a cobrança. Tente novamente.");
-          }
-        } catch (error) {
-          console.error("Erro ao abrir pagamento:", error);
-          alert("Erro ao abrir o pagamento. Tente novamente.");
-        } finally {
-          if (btn) {
-            if (isAccess && ctaText) ctaText.innerHTML = originalCtaHtml;
-            btn.innerHTML = originalBtnHtml;
-            btn.disabled = false;
-          }
-        }
-      }
+    resetPixModalContent();
+    setPixModalDetails(pkg);
+    openPixModal();
+  } catch (error) {
+    console.error("Erro ao abrir pagamento:", error);
+    alert("Erro ao abrir o pagamento. Tente novamente.");
+  } finally {
+    btn.innerHTML = originalBtnHtml;
+    btn.disabled = false;
+  }
+}
 
       async function checkPaymentManual() {
         const btn = document.getElementById("btn-already-paid");
